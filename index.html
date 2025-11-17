@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Princess Day for Butki 👑💙</title>
+
+  <style>
+    :root {
+      --blue-heart: #4fa8ff;
+      --bg1: #cbe3ff;
+      --bg2: #f3f8ff;
+      --text: #183153;
+      --accent: #5d9bff;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow-x: hidden;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeIn 0.8s ease;
+    }
+    .page.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px white;
+      animation: glow 3s infinite ease-in-out;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px white; }
+      50% { text-shadow: 0 0 25px var(--accent); }
+      100% { text-shadow: 0 0 10px white; }
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 14px 28px;
+      font-size: 1.2rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      transition: 0.2s;
+    }
+    button:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 18px rgba(0,0,0,0.3);
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      font-size: 24px;
+      color: var(--blue-heart);
+      animation: floatUp 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120px) scale(1.8); opacity: 0; }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px white;
+      animation: sparkleAnim 1.8s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes sparkleAnim {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.8); opacity: 0.8; }
+      100% { transform: scale(0.5); opacity: 0; }
+    }
+
+    /* Gift Box */
+    #giftBox {
+      font-size: 7rem;
+      cursor: pointer;
+      margin-top: 20px;
+      animation: giftBounce 2s infinite ease-in-out;
+    }
+
+    @keyframes giftBounce {
+      0% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-15px) rotate(5deg); }
+      100% { transform: translateY(0) rotate(0); }
+    }
+
+    #giftText {
+      display: none;
+      font-size: 1.25rem;
+      margin-top: 20px;
+      line-height: 1.8;
+      animation: fadeIn 1s ease;
+    }
+
+    #nextFromGift {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .bigText {
+      font-size: 1.35rem;
+      line-height: 1.85;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<audio id="music" src="music/music.mp3"></audio>
+
+<!-- PAGE 1 -->
+<section id="page1" class="page active">
+  <h1>Hi Butki 💙👑</h1>
+  <p class="bigText">
+    Today is Princess Day — and there is absolutely no world in which you aren’t the princess of mine.
+    I made something soft, warm and full of love… just for you.
+  </p>
+  <button onclick="goTo(2)">Next</button>
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="page">
+  <h1>Ready for your surprise, princess? 💙</h1>
+  <p class="bigText">I promise it’s made with so much love that even your screen is blushing.</p>
+  <button onclick="playMusic(); goTo(3)">Show me 💗</button>
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3" class="page">
+  <h1>Reasons why you're my princess 💙👑</h1>
+  <div id="reasonsContainer"></div>
+  <button id="reasonsBtn" onclick="showNextReason()">Next ➜</button>
+</section>
+
+<!-- PAGE 4 -->
+<section id="page4" class="page">
+  <h1>Your Princess Day Gift 🎁💙</h1>
+
+  <div id="giftBox" onclick="openGift()">🎁</div>
+
+  <p id="giftText" class="bigText">
+    Butki,  
+    you are softness in human form.  
+    You are comfort in a voice, warmth in a smile, calmness in chaos.  
+    Every moment with you feels like someone switched the world into “fairytale mode.”  
+    You don’t just make my days better —  
+    you make them meaningful.  
+    You make them worth remembering.  
+    You make *me* better.  
+    And no matter where life goes,  
+    you will forever be my princess —  
+    not because of a crown, but because of your heart. 💙👑✨
+  </p>
+
+  <button id="nextFromGift" onclick="goTo(5)">Next 💞</button>
+</section>
+
+<!-- PAGE 5 -->
+<section id="page5" class="page">
+  <h1>Happy Princess Day, Butki 💙👑</h1>
+  <p class="bigText">
+    I hope today made you smile.  
+    You deserve a universe full of softness, warmth, magic, and love.  
+    And I’ll spend every day giving you exactly that.  
+    You’re my princess — today, tomorrow, always. 💙✨  
+  </p>
+</section>
+
+<script>
+function goTo(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById("page" + n).classList.add('active');
+  spawnEffects();
+}
+
+function playMusic() {
+  const audio = document.getElementById("music");
+  audio.volume = 0.85;
+  audio.play().catch(()=>{});
+}
+
+function spawnEffects(count = 20) {
+  for (let i = 0; i < count; i++) {
+
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = "💙";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.top = "100vh";
+    h.style.animationDuration = (2 + Math.random()*2) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 3000);
+
+    let s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.top = Math.random() * 100 + "vh";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 2000);
+  }
+}
+
+const reasons = [
+  "Your smile feels like sunlight breaking through clouds 💙",
+  "You make everything around you softer and warmer ✨",
+  "You care in ways that melt the coldest days 💗",
+  "Your laughter is the cutest music I know 😭",
+  "Every moment with you feels like a dream scene 💙",
+  "You’re my comfort person. My softness. My princess. 👑"
+];
+
+let idx = 0;
+
+function showNextReason() {
+  const container = document.getElementById("reasonsContainer");
+  const btn = document.getElementById("reasonsBtn");
+
+  if (idx < reasons.length) {
+    let div = document.createElement("div");
+    div.className = "reason bigText";
+    div.style.opacity = "0";
+    div.style.transition = "0.6s";
+    div.textContent = reasons[idx];
+    container.appendChild(div);
+
+    setTimeout(() => {
+      div.style.opacity = "1";
+    }, 50);
+
+    spawnEffects(12);
+    idx++;
+  }
+
+  if (idx === reasons.length) {
+    btn.textContent = "Continue 🎁";
+    btn.onclick = () => goTo(4);
+  }
+}
+
+function openGift() {
+  document.getElementById("giftBox").style.display = "none";
+  document.getElementById("giftText").style.display = "block";
+  document.getElementById("nextFromGift").style.display = "inline-block";
+  spawnEffects(40);
+}
+</script>
+
+</body>
+</html>
